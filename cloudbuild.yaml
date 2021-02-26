@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/cariuska-geral/game:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/cariuska-geral/game:$COMMIT_SHA'] 
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'game', '--region=us-central1', '--platform=managed', '--image=gcr.io/cariuska-geral/game:$COMMIT_SHA']
+  
